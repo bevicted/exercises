@@ -41,3 +41,22 @@ func TestTwoSum(t *testing.T) {
 		})
 	}
 }
+
+func FuzzTwoSum(f *testing.F) {
+	f.Add(2, 3, 5)
+	f.Fuzz(func(t *testing.T, n1, n2, target int) {
+		indices := twoSum([]int{n1, n2}, target)
+		if n1+n2 == target {
+			assert.Equal(t, []int{0, 1}, indices)
+			return
+		}
+
+		assert.Empty(t, indices)
+	})
+}
+
+func BenchmarkTwoSum(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		twoSum([]int{3, 2, 4}, 6)
+	}
+}
