@@ -20,6 +20,7 @@ pub fn main() !void {
 }
 
 /// Reads input from cwd and splits them into slices.
+/// Caller owns .a && .b mem.
 fn getInput(malloc: Allocator) !struct { a: []u32, b: []u32 } {
     // TODO: no idea how to get current file's dir right now
     const file = try std.fs.cwd().openFile(inputFileName, .{});
