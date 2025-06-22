@@ -11,7 +11,7 @@ type twoSumF func(nums []int, target int) []int
 // original submission
 // BenchmarkTwoSum-8       12280203                91.72 ns/op
 func twoSum(nums []int, target int) []int {
-	for i := 0; i < len(nums); i++ {
+	for i := range nums {
 		for j := i + 1; j < len(nums); j++ {
 			if nums[i]+nums[j] == target {
 				return []int{i, j}
