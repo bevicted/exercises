@@ -1,7 +1,7 @@
 const std = @import("std");
 const Allocator = std.mem.Allocator;
 
-const inputFileName = "day_1_input.txt";
+const inputFileName = "2024_1.txt";
 
 pub fn main() !void {
     var gpa = std.heap.GeneralPurposeAllocator(.{}).init;
@@ -22,7 +22,7 @@ pub fn main() !void {
 /// Reads input from cwd and splits them into slices.
 /// Caller owns .a && .b mem.
 fn getInput(malloc: Allocator) !struct { a: []u32, b: []u32 } {
-    // TODO: no idea how to get current file's dir right now
+    // TODO: get path from arg
     const file = try std.fs.cwd().openFile(inputFileName, .{});
     defer file.close();
     const reader = file.reader();
