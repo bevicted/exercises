@@ -40,12 +40,9 @@ func TestTwoSum(t *testing.T) {
 			expectIndices: []int{0, 1},
 		},
 	} {
-		tc := tc
 		t.Run(tc.name, func(t *testing.T) {
 			t.Parallel()
-			for _, f := range []twoSumF{twoSum, twoSumV2} {
-				assert.Equal(t, tc.expectIndices, f(tc.nums, tc.target))
-			}
+			assert.Equal(t, tc.expectIndices, twoSum(tc.nums, tc.target))
 		})
 	}
 }
@@ -72,21 +69,11 @@ func makeRandIntSlice(n int) []int {
 }
 
 func BenchmarkTwoSum(b *testing.B) {
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		b.StopTimer()
 		nums := makeRandIntSlice(benchmarkNumsLen)
 
 		b.StartTimer()
 		twoSum(nums, benchmarkTarget)
-	}
-}
-
-func BenchmarkTwoSumV2(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		b.StopTimer()
-		nums := makeRandIntSlice(benchmarkNumsLen)
-
-		b.StartTimer()
-		twoSumV2(nums, benchmarkTarget)
 	}
 }
