@@ -1,18 +1,20 @@
 #include <stdio.h>
 
-#define N 4
 #define NO_INSERT -1
 
+#define LEN 3
+#define CMP <
+
 int main() {
-    int input, inputs[N];
+    int input, inputs[LEN];
     int insert_idx = NO_INSERT;
 
-    for (int i = 0; i < N; i++) {
+    for (int i = 0; i < LEN; i++) {
         scanf("%d", &input);
 
         // find insertion point
         for (int j = 0; j < i; j++) {
-            if (inputs[j] > input) {
+            if (inputs[j] CMP input) {
                 insert_idx = j;
                 break;
             }
@@ -25,7 +27,7 @@ int main() {
         }
 
         // shift right
-        for (int j = N - 1; j > insert_idx; j--) {
+        for (int j = LEN - 1; j > insert_idx; j--) {
             inputs[j] = inputs[j - 1];
         }
 
@@ -33,6 +35,11 @@ int main() {
         inputs[insert_idx] = input;
         insert_idx = NO_INSERT;
     }
+
+    for (int i = 0; i < LEN; i++)
+        printf("%d ", inputs[i]);
+
+    printf("\n");
 
     return 0;
 }
