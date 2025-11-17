@@ -11,7 +11,7 @@ int main() {
 
   for (int i = 1; i < INPUT_SIZE; i++) {
     scanf("%f", &input);
-    if (input > arr[len - 1]) {
+    if (input >= arr[len - 1]) {
       arr[len] = input;
       len++;
       continue;
