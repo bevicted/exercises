@@ -118,9 +118,9 @@ int sum_age(int sum, Player p) {
 }
 
 int pick(Team *t, int (*cmp)(Player, Player)) {
-    int idx = 0;
+    int idx = -1;
     for (int i = 0; i < t->size; i++)
-        if (cmp(t->players[idx], t->players[i]))
+        if (idx == -1 || cmp(t->players[idx], t->players[i]))
             idx = i;
     return idx;
 }
