@@ -70,6 +70,11 @@ typedef struct {
     int size;
 } Team;
 
+void deinit_players(Player* p) {
+    free(p);
+    p = NULL;
+}
+
 Team new_team() {
     Team t;
     printf("Team size: ");
@@ -82,8 +87,7 @@ Team new_team() {
 }
 
 void deinit_team(Team *t) {
-    free(t->players);
-    t->players = NULL;
+    deinit_players(t->players);
 }
 
 // filters t->players indexes into Result via gate_f
@@ -121,6 +125,29 @@ int pick(Team *t, int (*cmp)(Player, Player)) {
     return idx;
 }
 
+// Sorts players of t in a new array
+//
+// Caller owns memory of sorted array
+Player* sort(Team* t, int (*cmp)(Player, Player)) {
+    Player* sorted = (Player*)malloc(sizeof(Player) * t->size);
+    Player temp;
+
+    for (int i = 0; i < t->size; i++) {
+        sorted[i] = t->players[i];
+    }
+
+    for (int i = 0; i < t->size; i++) {
+        for (int j = i + 1; j < t->size; j++)
+            if (cmp(sorted[i], sorted[j])) {
+                temp = sorted[i];
+                sorted[i] = sorted[j];
+                sorted[j] = temp;
+            }
+    }
+
+    return sorted;
+}
+
 int cmp_oldest(Player p1, Player p2) {
     return p2.age > p1.age;
 }
@@ -133,6 +160,10 @@ int cmp_most_goals_under_25(Player p1, Player p2) {
     return p2.age < 25 && p2.goals > p1.goals;
 }
 
+int cmp_tallest(Player p1, Player p2) {
+    return p2.height > p1.height;
+}
+
 int main() {
     srand(time(NULL));
     Team team = new_team();
@@ -141,7 +172,7 @@ int main() {
         print_player(team.players[i]);
 
     int target;
-    printf("Will look for n: ");
+    printf("Will look for player number: ");
     scanf("%d", &target);
 
     printf("Oldest: %d\n", pick(&team, cmp_oldest));
@@ -162,6 +193,12 @@ int main() {
     printf("Avg age: %.2f\n", (float)age_sum / team.size);
 
     printf("Most goals under 25: %d\n", pick(&team, cmp_most_goals_under_25));
+
+    Player* height_sorted = sort(&team, cmp_tallest);
+    printf("Sorted:\n");
+    for (int i = 0; i < team.size; i++)
+        print_player(height_sorted[i]);
+    deinit_players(height_sorted);
 
     deinit_team(&team);
     return 0;
