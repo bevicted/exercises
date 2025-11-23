@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>WEBshop</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <script src="main.js"></script>
+    <div class="navbar">
+      <a>🔥10% OFF!🔥</a>
+      <a>Brainpower: <i id="balance">0</i> 🧠</a>
+      <div class="dropdown">
+          <button class="dropbtn" onclick="onCartClick()">
+            🛒 Cart
+            <i id="total-cost">(0 🧠)</i>
+            ▼
+          </button>
+          <div class="dropdown-content" id="cart-dropdown">
+          </div>
+        </div>
+      <button onclick="clearCart()">
+        🗑️ Clear
+      </button>
+    </div>
+    <div id="card-holder">
+        <div class="card">
+          <img src="assets/c_logo.png" alt="c logo">
+          <div class="container">
+            <h4 class="product-name">C</h4>
+            <p class="product-price"></p>
+          </div>
+        </div> 
+        <div class="card">
+          <img src="assets/zig_logo.png" alt="zig logo">
+          <div class="container">
+            <h4 class="product-name">Zig</h4>
+            <p class="product-price"></p>
+          </div>
+        </div> 
+        <div class="card">
+          <img src="assets/rust_logo.png" alt="rust logo">
+          <div class="container">
+            <h4 class="product-name">Rust</h4>
+            <p class="product-price"></p>
+          </div>
+        </div> 
+        <div class="card">
+          <img src="assets/cpp_logo.png" alt="cpp logo">
+          <div class="container">
+            <h4 class="product-name">C++</h4>
+            <p class="product-price"></p>
+          </div>
+        </div> 
+    </div>
+  </body>
+</html>
+
